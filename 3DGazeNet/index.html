@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="3DGazeNet reliably predicts 3D eye meshes and gaze direction from iamges in unconstrained environments.">
+  <meta name="keywords" content="3DGazeNet, 3D Gaze Estimation, 3D Eyes">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3DGazeNet: Generalizing Gaze Estimation with Weak-Supervision from Synthetic Views</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://eververas.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://eververas.github.io/SAGS/">
+            SAGS: Structure-Aware 3D Gaussian Splatting
+          </a>
+          <a class="navbar-item" href="https://baltatzisv.github.io/neural-sign-actors/">
+            Neural Sign Actors
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">3DGazeNet: Generalizing Gaze Estimation with Weak-Supervision from Synthetic Views</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=KkAjki8AAAAJ&hl=en">Evangelos Ververas</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://github.com/gkagkos">Polydefkis Gkagkos</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://jiankangdeng.github.io/">Jiankang Deng</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://michaildoukas.github.io/">Michail Christos Doukas</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://github.com/nttstar">Gia Guo</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://profiles.imperial.ac.uk/s.zafeiriou">Stefanos Zafeiriou</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Imperial College London,</span>
+            <span class="author-block"><sup>2</sup>Huawei Noah's Ark Lab UK</span>
+            <span class="author-block"><sup>3</sup>Insightface</span>
+          </div>
+          <br>
+          <span class="author-block">
+            <h1 class="title is-size-4 publication-venue"> European Conference on Computer Vision (ECCV), 2024</h1>
+          </span>
+          <br>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/03191.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2212.02997"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=-tcpHuZIoSQ"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Presentation</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/eververas/3DGazeNet"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <!-- <h2 class="subtitle has-text-centered">
+      3DGazeNet reliably predicts 3D eye meshes and gaze direction from images/videos in unconstrained environments.
+    </h2> -->
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/demo.mp4"
+                type="video/mp4">
+      </video>
+      <img src="./static/images/teaser.png" alt="teaser_fig" class="center">
+      <h2 class="subtitle has-text-centered">
+        3DGazeNet reliably predicts 3D eye meshes and gaze direction from images in unconstrained environments.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+          Developing gaze estimation models that generalize well to
+          unseen domains and in-the-wild conditions remains a challenge with no
+          known best solution. This is mostly due to the difficulty of acquiring
+          ground truth data that cover the distribution of faces, head poses, and
+          environments that exist in the real world. Most recent methods attempt
+          to close the gap between specific source and target domains using domain
+          adaptation. 
+          In this work, we propose to train general gaze estimation
+          models which can be directly employed in novel environments without
+          adaptation. To do so, we leverage the observation that head, body, and
+          hand pose estimation benefit from revising them as dense 3D coordinate
+          prediction, and similarly express gaze estimation as regression of dense
+          3D eye meshes. To close the gap between image domains, we create a
+          large-scale dataset of diverse faces with gaze pseudo-annotations, which
+          we extract based on the 3D geometry of the face, and design a multi-view
+          supervision framework to balance their effect during training. We test
+          our method in the task of gaze generalization, in which we demonstrate
+          improvement of up to 23% compared to state-of-the-art when no ground
+          truth data are available, and up to 10% when they are.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section"></section>
+  <div class="container is-max-desktop">
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+        <br>
+        <div class="content has-text-justified">
+          <div class="columns is-centered">
+          <img src="./static/images/method.png" alt="teaser_fig" class="center" width="90%">
+          </div>
+          <p>
+          Overview of 3DGazeNet. 
+          (a) During training we employ either
+          single images with ground-truth annotations or pairs of synthetic views of the same
+          subject with pseudo-annotations. 
+          Different sets of losses are employed depending on the input source. 
+          (b) Detailed demonstration of the multi-view consistency loss.
+          (c) The base network (3DEyeNet) of our model consists of a ResNet backbone and two fully
+          connected layers leading to the 3D eye mesh and gaze vector outputs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section"></section>
+  <div class="container is-max-desktop">
+    <!-- Data. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">3D Eye Mesh Annotations</h2>
+        <div class="content has-text-justified">
+          <div class="columns is-centered">
+          <img src="./static/images/data.png" alt="teaser_fig" class="center" width="70%">
+          </div>
+          <p>
+          (a) The employed rigid 3D eyeball mesh template. 
+          (b) Ground truth data generation, applied on gaze estimation datasets with available ground truth. 
+          (c) Pseudoground truth data generation, applied on arbitrary face images without gaze labels.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section"></section>
+  <!-- Results. -->
+  <div class="container is-max-desktop">
+    <div class="columns is-centered ">
+      <h2 class="title is-3">Results</h2>
+    </div>
+  </div>    
+  <br>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered ">
+    
+      <!-- Visual Effects. -->
+      <div class="column is-full-width">
+        <div class="columns is-centered"></div>
+          <div class="content">
+            <p>
+            Results of 3DGazeNet trained with MPIIFaceGaze olny (blue vectors) and combined MPIIFaceGaze
+            and ITWG with multi-view supervision (red vectors), applied on the test set of G360
+            (yellow vectors). Especially for side and profile views, the effect of the
+            extended variation of ITWG is significant.
+            </p>
+            <img src="./static/images/mpii2g360.png" alt="teaser_fig" class="center" width="100%">
+          </div>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <div class="column is-full-width">
+        <div class="columns is-centered">
+          <div class="content has-text-justified">
+            <p>
+            Results from applying our model on difficult cases including faces in profile
+            pose, faces with glasses and faces with occlusions or low resolution. 3DGazeNet can
+            successfully handle these difficult scenarios and produce reliable gaze predictions.
+            </p>
+            <img src="./static/images/difficult.png" alt="teaser_fig" class="center">
+          </div>
+
+        </div>
+      </div>
+    <!--/ Matting. -->
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{ververas20243dgazenet,
+    author    = {Ververas, Evangelos and Gkagkos, Polydefkis and Deng, Jiankang and Christos Doukas, Michail and Guo, Jia and Zafeiriou, Stefanos},
+    title     = {3DGazeNet: Generalizing Gaze Estimation with Weak-Supervision from Synthetic Views},
+    journal   = {ECCV},
+    year      = {2024},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            The source code of this website is borrowed from 
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
